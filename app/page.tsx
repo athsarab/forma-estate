@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import ScrollExpandMedia from "../components/ui/scroll-expansion-hero";
 import { CoverflowCarousel, CoverflowSlide } from "@/components/ui/coverflow-carousel";
@@ -194,10 +194,35 @@ export default function Home() {
     setSent(true);
   }
 
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.defaultMuted = true;
+      video.muted = true;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Fallback if browser requires interaction
+        });
+      }
+    }
+  }, []);
+
   return (
     <main>
       <section className="hero">
-        <video className="hero-video" autoPlay muted loop playsInline poster="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=2000&q=80">
+        <video
+          ref={videoRef}
+          className="hero-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=2000&q=80"
+        >
           <source src="/hero.mp4" type="video/mp4" />
         </video>
         <div className="hero-overlay" />
