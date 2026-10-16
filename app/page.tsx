@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import ScrollExpandMedia from "../components/ui/scroll-expansion-hero";
 import { CoverflowCarousel, CoverflowSlide } from "@/components/ui/coverflow-carousel";
 import { AnimatedTestimonialsMarquee, Testimonial } from "@/components/ui/animated-testimonials-marquee";
+import { Footer } from "@/components/footer";
 
 const properties = [
   { name: "Casa Nera", place: "Comporta, Portugal", type: "Villa", beds: 4, area: "286 m²", price: "€1.85m", image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=85" },
@@ -287,7 +288,7 @@ export default function Home() {
 
       <section className="contact section-pad" id="contact"><div className="contact-copy"><p className="eyebrow dark">Start a conversation</p><h2>Your next chapter<br /><em>begins here.</em></h2><p>Share a little about what you are looking for. We will come back to you personally within two working days.</p></div><form onSubmit={submitInquiry}>{sent ? <div className="success"><span>✓</span><h3>Thank you for reaching out.</h3><p>Your enquiry is ready for our team. We will be in touch shortly.</p></div> : <><div className="form-row"><label>Full name<input required name="name" /></label><label>Email address<input required type="email" name="email" /></label></div><div className="form-row"><label>Country of residence<input name="country" /></label><label>Preferred destination<select name="destination"><option>Portugal</option><option>Italy</option><option>Spain</option><option>Not sure yet</option></select></label></div><label>Tell us what you are looking for<textarea required name="message" rows={4} /></label><button className="button button-dark" type="submit">Send enquiry <span>↗</span></button><small>This form is a frontend enquiry point. Connect it to your CRM or email service before launch.</small></>}</form></section>
 
-      <footer><a className="brand" href="#top">FORMA<span>—</span>ESTATE</a><p>A more considered way home.</p><div><a href="#collection">Collection</a><a href="#showcase">Showcase</a><a href="#approach">Approach</a><a href="#testimonials">Perspectives</a><a href="#contact">Contact</a></div><small>© 2026 Forma Estate. For illustrative purposes.</small></footer>
+      <Footer />
     </main>
   );
 }
