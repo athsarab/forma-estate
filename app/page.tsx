@@ -4,6 +4,7 @@ import { FormEvent, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import ScrollExpandMedia from "../components/ui/scroll-expansion-hero";
 import { CoverflowCarousel, CoverflowSlide } from "@/components/ui/coverflow-carousel";
+import { AnimatedTestimonialsMarquee, Testimonial } from "@/components/ui/animated-testimonials-marquee";
 
 const properties = [
   { name: "Casa Nera", place: "Comporta, Portugal", type: "Villa", beds: 4, area: "286 m²", price: "€1.85m", image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=85" },
@@ -118,6 +119,65 @@ const showcaseSlides: CoverflowSlide[] = [
   },
 ];
 
+const testimonials: Testimonial[] = [
+  {
+    name: "Sean Rose",
+    handle: "@seanrose",
+    tag: "Private Buyer",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&h=200&q=80",
+    text: "Really liking @formaestate so far. It's just the right amount of considered curation and does all the hard work of overseas acquisition in the background.",
+  },
+  {
+    name: "Ryan Delk",
+    handle: "@delk",
+    tag: "Tech Founder",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&h=200&q=80",
+    text: "Don't take it from me: @formaestate is magic. They unlocked an off-market cliffside estate in Mallorca that wasn't visible anywhere else.",
+  },
+  {
+    name: "Demetria Giles",
+    handle: "@drosewritings",
+    tag: "Design Director",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&h=200&q=80",
+    text: "Playing around with @formaestate portfolio has been incredible. Details, floorplans, light studies, and sound architectural advice. A design lover's dream come true.",
+  },
+  {
+    name: "Jeremy McPeak",
+    handle: "@jwmcpeak",
+    tag: "Puglia Masseria",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&h=200&q=80",
+    text: "I just completed our acquisition with @formaestate, and honestly wow! It is exceptionally well thought out, and I can see this being my advisory platform going forward.",
+  },
+  {
+    name: "Fabrizio Rinaldi",
+    handle: "@linuz90",
+    tag: "Product Lead",
+    avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=200&h=200&q=80",
+    text: "I'm keeping @formaestate open *all* the time. Looking for both architectural inspiration and long-term retreats. It's rare to see a real estate platform execute so well.",
+  },
+  {
+    name: "Jonathan Simcoe",
+    handle: "@jdsimcoe",
+    tag: "Architect",
+    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&h=200&q=80",
+    text: "All righty. I have to give a massive shoutout to @formaestate for pioneering this standard. Speed, focus, and attention to architectural details is superb.",
+  },
+  {
+    name: "Camille Laurent",
+    handle: "@claurent_arch",
+    tag: "Riviera Retreat",
+    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&h=200&q=80",
+    text: "Cross-border purchases are usually fraught with obscurity. With @formaestate, every legal step and structural analysis was crystal clear.",
+  },
+  {
+    name: "Marcus Vance",
+    handle: "@vance_marcus",
+    tag: "Private Collector",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&h=200&q=80",
+    text: "The Alentejo villa we acquired via @formaestate feels like a true sanctuary. Their local specialists made the entire escrow and handover feel effortless.",
+  },
+];
+
 export default function Home() {
   const [query, setQuery] = useState("");
   const [type, setType] = useState("All types");
@@ -142,7 +202,7 @@ export default function Home() {
         <div className="hero-overlay" />
         <nav className="nav">
           <a className="brand" href="#top">FORMA<span>—</span>ESTATE</a>
-          <div className="nav-links"><a href="#collection">Collection</a><a href="#showcase">Showcase</a><a href="#approach">Our approach</a><a href="#contact">Contact</a></div>
+          <div className="nav-links"><a href="#collection">Collection</a><a href="#showcase">Showcase</a><a href="#approach">Our approach</a><a href="#testimonials">Perspectives</a><a href="#contact">Contact</a></div>
           <a className="nav-cta" href="#contact">Private consultation <span>↗</span></a>
         </nav>
         <div className="hero-content" id="top">
@@ -207,9 +267,27 @@ export default function Home() {
 
       <section className="journey dark-section section-pad"><div className="section-heading"><div><p className="eyebrow">The journey</p><h2>Considered at<br /><em>every step.</em></h2></div><p className="section-lead">Buying internationally should feel exciting, never opaque. We stay close from first conversation to final key.</p></div><div className="steps">{["Tell us what you are looking for.", "Explore a considered shortlist.", "Arrange in-person or remote viewings.", "Review the process with local professionals.", "Move forward with clarity."].map((step, index) => <div className="step" key={step}><span>0{index + 1}</span><p>{step}</p></div>)}</div></section>
 
+      <section className="testimonials-section dark-section" id="testimonials">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">Client Perspectives</p>
+            <h2>Words from our<br /><em>community.</em></h2>
+          </div>
+          <p className="section-lead">
+            Reflections from patrons, architects, and collectors who have found their home with Forma Estate.
+          </p>
+        </div>
+
+        <AnimatedTestimonialsMarquee
+          testimonials={testimonials}
+          speed={45}
+          pauseOnHover={true}
+        />
+      </section>
+
       <section className="contact section-pad" id="contact"><div className="contact-copy"><p className="eyebrow dark">Start a conversation</p><h2>Your next chapter<br /><em>begins here.</em></h2><p>Share a little about what you are looking for. We will come back to you personally within two working days.</p></div><form onSubmit={submitInquiry}>{sent ? <div className="success"><span>✓</span><h3>Thank you for reaching out.</h3><p>Your enquiry is ready for our team. We will be in touch shortly.</p></div> : <><div className="form-row"><label>Full name<input required name="name" /></label><label>Email address<input required type="email" name="email" /></label></div><div className="form-row"><label>Country of residence<input name="country" /></label><label>Preferred destination<select name="destination"><option>Portugal</option><option>Italy</option><option>Spain</option><option>Not sure yet</option></select></label></div><label>Tell us what you are looking for<textarea required name="message" rows={4} /></label><button className="button button-dark" type="submit">Send enquiry <span>↗</span></button><small>This form is a frontend enquiry point. Connect it to your CRM or email service before launch.</small></>}</form></section>
 
-      <footer><a className="brand" href="#top">FORMA<span>—</span>ESTATE</a><p>A more considered way home.</p><div><a href="#collection">Collection</a><a href="#showcase">Showcase</a><a href="#approach">Approach</a><a href="#contact">Contact</a></div><small>© 2026 Forma Estate. For illustrative purposes.</small></footer>
+      <footer><a className="brand" href="#top">FORMA<span>—</span>ESTATE</a><p>A more considered way home.</p><div><a href="#collection">Collection</a><a href="#showcase">Showcase</a><a href="#approach">Approach</a><a href="#testimonials">Perspectives</a><a href="#contact">Contact</a></div><small>© 2026 Forma Estate. For illustrative purposes.</small></footer>
     </main>
   );
 }
