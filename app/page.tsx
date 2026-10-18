@@ -6,6 +6,7 @@ import ScrollExpandMedia from "../components/ui/scroll-expansion-hero";
 import { CoverflowCarousel, CoverflowSlide } from "@/components/ui/coverflow-carousel";
 import { AnimatedTestimonialsMarquee, Testimonial } from "@/components/ui/animated-testimonials-marquee";
 import { Footer } from "@/components/footer";
+import { Navbar } from "@/components/navbar";
 
 const properties = [
   { name: "Casa Nera", place: "Comporta, Portugal", type: "Villa", beds: 4, area: "286 m²", price: "€1.85m", image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=85" },
@@ -212,7 +213,8 @@ export default function Home() {
 
   return (
     <main>
-      <section className="hero">
+      <Navbar />
+      <section className="hero" id="top">
         <video
           ref={videoRef}
           className="hero-video"
@@ -226,12 +228,7 @@ export default function Home() {
           <source src="/hero.mp4" type="video/mp4" />
         </video>
         <div className="hero-overlay" />
-        <nav className="nav">
-          <a className="brand" href="#top">FORMA<span>—</span>ESTATE</a>
-          <div className="nav-links"><a href="#collection">Collection</a><a href="#showcase">Showcase</a><a href="#approach">Our approach</a><a href="#testimonials">Perspectives</a><a href="#contact">Contact</a></div>
-          <a className="nav-cta" href="#contact">Private consultation <span>↗</span></a>
-        </nav>
-        <div className="hero-content" id="top">
+        <div className="hero-content">
           <p className="eyebrow">Curated international real estate</p>
           <h1>Exceptional properties.<br /><em>Extraordinary possibilities.</em></h1>
           <p className="hero-intro">A more considered way to find your place in the world. We connect discerning buyers with residences of lasting character.</p>

@@ -754,3 +754,594 @@
   }
 }
 
+/* =========================================================================
+   MODERN SCROLL-AWARE FLOATING NAVBAR
+   ========================================================================= */
+
+.forma-nav-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 999;
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.forma-nav-container {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Initial Top State */
+.forma-nav-top .forma-nav-container {
+  max-width: 1440px;
+  padding: 22px clamp(20px, 4vw, 50px) 0;
+}
+
+/* Scrolled Floating Capsule State */
+.forma-nav-scrolled .forma-nav-container {
+  max-width: 1180px;
+  padding: 12px clamp(16px, 3vw, 36px) 0;
+  transform: translateY(0);
+}
+
+.forma-nav-bar {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 9999px;
+  box-sizing: border-box;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.forma-nav-top .forma-nav-bar {
+  background: rgba(18, 28, 22, 0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 10px 16px 10px 22px;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.35);
+}
+
+.forma-nav-scrolled .forma-nav-bar {
+  background: rgba(16, 26, 20, 0.84);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 7px 12px 7px 18px;
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(163, 135, 98, 0.22);
+}
+
+/* Brand Section */
+.forma-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.forma-brand-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(163, 135, 98, 0.35) 0%, rgba(20, 32, 25, 0.95) 100%);
+  border: 1px solid rgba(163, 135, 98, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.forma-nav-brand:hover .forma-brand-icon {
+  transform: rotate(45deg);
+  border-color: var(--bronze);
+}
+
+.brand-gem {
+  width: 9px;
+  height: 9px;
+  background: var(--bronze);
+  transform: rotate(45deg);
+  border-radius: 1.5px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 0 8px rgba(163, 135, 98, 0.6);
+}
+
+.forma-nav-brand:hover .brand-gem {
+  transform: rotate(0deg);
+  background: #ffffff;
+}
+
+.forma-brand-text {
+  display: flex;
+  align-items: baseline;
+  letter-spacing: 0.18em;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.brand-main {
+  font-family: var(--sans);
+  color: #ffffff;
+}
+
+.brand-sep {
+  color: var(--bronze);
+  padding: 0 6px;
+  font-size: 11px;
+}
+
+.brand-sub {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  font-weight: 500;
+  color: #d7c7aa;
+}
+
+/* Desktop Navigation Dock */
+.forma-desktop-links {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(0, 0, 0, 0.24);
+  padding: 3.5px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.forma-nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 15px;
+  border-radius: 9999px;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.forma-nav-link:hover {
+  color: #ffffff;
+}
+
+.forma-nav-link-active {
+  color: #ffffff;
+}
+
+.forma-nav-active-pill {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 0;
+}
+
+.nav-link-label {
+  position: relative;
+  z-index: 1;
+}
+
+.forma-nav-badge {
+  position: relative;
+  z-index: 1;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, var(--bronze), #d7c7aa);
+  color: #16221a;
+  padding: 1.5px 5.5px;
+  border-radius: 9999px;
+}
+
+/* Actions on Right */
+.forma-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.forma-nav-status-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  padding: 6px 13px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #e5ded2;
+}
+
+.status-dot {
+  position: relative;
+  display: inline-flex;
+  width: 6.5px;
+  height: 6.5px;
+  border-radius: 50%;
+  background: #34d399;
+}
+
+.status-dot-ping {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: #34d399;
+  opacity: 0.75;
+  animation: formaPulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes formaPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.forma-nav-icon-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f2efe8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.forma-nav-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.forma-nav-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--ivory);
+  color: var(--forest);
+  padding: 8px 18px;
+  border-radius: 9999px;
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  white-space: nowrap;
+}
+
+.forma-nav-cta-btn:hover {
+  background: #ffffff;
+  color: #172119;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cta-arrow {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s ease;
+  color: var(--forest);
+}
+
+.forma-nav-cta-btn:hover .cta-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* Mobile Toggle */
+.forma-mobile-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.forma-mobile-toggle:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* Bottom Progress Track */
+.forma-nav-progress-track {
+  height: 2px;
+  width: calc(100% - 40px);
+  max-width: 1040px;
+  margin: 5px auto 0;
+  border-radius: 9999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.forma-nav-scrolled .forma-nav-progress-track {
+  opacity: 1;
+}
+
+.forma-nav-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--bronze), #d7c7aa, #ffffff);
+  border-radius: 9999px;
+  transition: width 0.08s linear;
+}
+
+/* =========================================================================
+   MOBILE LUXURY DRAWER MODAL
+   ========================================================================= */
+
+.forma-mobile-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(12, 19, 14, 0.82);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(14px, 4vw, 24px);
+  overflow-y: auto;
+}
+
+.forma-mobile-drawer-content {
+  width: 100%;
+  max-width: 520px;
+  background: rgba(22, 34, 26, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 28px;
+  padding: 24px;
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 10px;
+}
+
+.mobile-drawer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 16px;
+}
+
+.mobile-drawer-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c7b89e;
+}
+
+.mobile-drawer-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mobile-drawer-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.mobile-drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  text-decoration: none;
+  color: #f2efe8;
+  transition: all 0.2s ease;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(163, 135, 98, 0.4);
+}
+
+.mobile-nav-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--bronze);
+  margin-right: 14px;
+}
+
+.mobile-nav-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  flex: 1;
+}
+
+.mobile-nav-badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  background: var(--bronze);
+  color: #172119;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  margin-right: 10px;
+}
+
+.mobile-nav-arrow {
+  width: 16px;
+  height: 16px;
+  color: rgba(255, 255, 255, 0.5);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.mobile-nav-link:hover .mobile-nav-arrow {
+  transform: translate(2px, -2px);
+  color: #ffffff;
+}
+
+.mobile-drawer-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+}
+
+.mobile-drawer-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ivory);
+  color: var(--forest);
+  padding: 14px 20px;
+  border-radius: 9999px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-drawer-cta:hover {
+  background: #ffffff;
+}
+
+.mobile-drawer-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 14px 18px;
+  border-radius: 16px;
+}
+
+.mobile-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.meta-label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--bronze);
+}
+
+.meta-val {
+  font-size: 12.5px;
+  color: #e5ded2;
+  text-decoration: none;
+}
+
+/* =========================================================================
+   NAVBAR RESPONSIVE BREAKPOINTS
+   ========================================================================= */
+
+@media (max-width: 1080px) {
+  .forma-desktop-links {
+    display: none;
+  }
+  .forma-nav-status-pill {
+    display: none;
+  }
+  .forma-mobile-toggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 640px) {
+  .forma-nav-top .forma-nav-container,
+  .forma-nav-scrolled .forma-nav-container {
+    padding: 10px 14px 0;
+  }
+  .forma-nav-bar {
+    padding: 8px 12px 8px 14px !important;
+  }
+  .forma-brand-text {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+  }
+  .brand-sub {
+    font-size: 9.5px;
+  }
+  .forma-nav-icon-btn {
+    display: none;
+  }
+  .forma-nav-cta-btn {
+    padding: 7px 13px;
+    font-size: 10px;
+  }
+  .cta-arrow {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+
