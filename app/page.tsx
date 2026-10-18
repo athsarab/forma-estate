@@ -199,16 +199,40 @@ export default function Home() {
 
   useEffect(() => {
     const video = videoRef.current;
-    if (video) {
-      video.defaultMuted = true;
-      video.muted = true;
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // Fallback if browser requires interaction
+    if (!video) return;
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+
+    const playVideo = () => {
+      const promise = video.play();
+      if (promise !== undefined) {
+        promise.catch(() => {
+          // Autoplay was prevented by browser policy
         });
       }
-    }
+    };
+
+    playVideo();
+
+    // Secondary guarantee: start playing as soon as user touches or scrolls
+    const onUserGesture = () => {
+      playVideo();
+      window.removeEventListener("scroll", onUserGesture);
+      window.removeEventListener("touchstart", onUserGesture);
+      window.removeEventListener("click", onUserGesture);
+    };
+
+    window.addEventListener("scroll", onUserGesture, { passive: true, once: true });
+    window.addEventListener("touchstart", onUserGesture, { passive: true, once: true });
+    window.addEventListener("click", onUserGesture, { passive: true, once: true });
+
+    return () => {
+      window.removeEventListener("scroll", onUserGesture);
+      window.removeEventListener("touchstart", onUserGesture);
+      window.removeEventListener("click", onUserGesture);
+    };
   }, []);
 
   return (
@@ -218,12 +242,12 @@ export default function Home() {
         <video
           ref={videoRef}
           className="hero-video"
+          src="/hero.mp4"
           autoPlay
           muted
           loop
           playsInline
           preload="auto"
-          poster="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=2000&q=80"
         >
           <source src="/hero.mp4" type="video/mp4" />
         </video>

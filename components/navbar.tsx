@@ -158,7 +158,6 @@ export function Navbar() {
                 <span className="status-dot">
                   <span className="status-dot-ping" />
                 </span>
-                <span className="status-label">Global Portfolio</span>
               </div>
 
               {/* Quick Search / Filter shortcut */}
