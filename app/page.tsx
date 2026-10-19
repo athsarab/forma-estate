@@ -258,14 +258,14 @@ export default function Home() {
         <video
           ref={videoRef}
           className="hero-video"
-          src="/hero.mp4"
+          src="/hero_faststart.mp4"
           autoPlay
           muted
           loop
           playsInline
           preload="auto"
         >
-          <source src="/hero.mp4" type="video/mp4" />
+          <source src="/hero_faststart.mp4" type="video/mp4" />
         </video>
         <div className="hero-overlay" />
         <div className="hero-content">
