@@ -2,11 +2,13 @@
 
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { ChevronDown, Search, SlidersHorizontal } from "lucide-react";
 import ScrollExpandMedia from "../components/ui/scroll-expansion-hero";
 import { CoverflowCarousel, CoverflowSlide } from "@/components/ui/coverflow-carousel";
 import { AnimatedTestimonialsMarquee, Testimonial } from "@/components/ui/animated-testimonials-marquee";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
+import { WhyWorkWithUs } from "@/components/why-work-with-us";
 
 const properties = [
   { name: "Casa Nera", place: "Comporta, Portugal", type: "Villa", beds: 4, area: "286 m²", price: "€1.85m", image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=85" },
@@ -181,18 +183,32 @@ const testimonials: Testimonial[] = [
 ];
 
 export default function Home() {
-  const [query, setQuery] = useState("");
-  const [type, setType] = useState("All types");
   const [sent, setSent] = useState(false);
   const [destination, setDestination] = useState(destinations[0]);
-  const results = useMemo(() => properties.filter((property) => {
-    const matchesQuery = `${property.name} ${property.place}`.toLowerCase().includes(query.toLowerCase());
-    return matchesQuery && (type === "All types" || property.type === type);
-  }), [query, type]);
+  const [searchIntent, setSearchIntent] = useState<"buy" | "rent">("buy");
+  const [propertyType, setPropertyType] = useState("Any property");
+  const [location, setLocation] = useState("Any destination");
+  const [budget, setBudget] = useState("Any budget");
+  const [bedrooms, setBedrooms] = useState("Any bedrooms");
+  const [advancedFiltersOpen, setAdvancedFiltersOpen] = useState(false);
 
   function submitInquiry(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSent(true);
+  }
+
+  const filteredProperties = useMemo(() => {
+    return properties.filter((property) => {
+      const matchesType = propertyType === "Any property" || property.type === propertyType;
+      const matchesLocation = location === "Any destination" || property.place.includes(location);
+      const matchesBedrooms = bedrooms === "Any bedrooms" || property.beds >= Number(bedrooms);
+      return matchesType && matchesLocation && matchesBedrooms;
+    });
+  }, [bedrooms, location, propertyType]);
+
+  function submitPropertySearch(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    document.getElementById("collection")?.scrollIntoView({ behavior: "smooth" });
   }
 
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -258,6 +274,60 @@ export default function Home() {
           <p className="hero-intro">A more considered way to find your place in the world. We connect discerning buyers with residences of lasting character.</p>
           <div className="hero-actions"><a className="button button-light" href="#collection">Explore the collection <span>↗</span></a><a className="text-link light" href="#contact">Arrange a private consultation <span>↗</span></a></div>
         </div>
+        <form className="hero-search" onSubmit={submitPropertySearch} aria-label="Find a property">
+          <div className="hero-search-intent" role="group" aria-label="Search intent">
+            <button type="button" className={searchIntent === "buy" ? "active" : ""} onClick={() => setSearchIntent("buy")}>Buy</button>
+            <button type="button" className={searchIntent === "rent" ? "active" : ""} onClick={() => setSearchIntent("rent")}>Rent</button>
+          </div>
+          <label className="hero-search-field">
+            <span>Property type</span>
+            <select value={propertyType} onChange={(event) => setPropertyType(event.target.value)} aria-label="Property type">
+              <option>Any property</option>
+              <option>Villa</option>
+              <option>Residence</option>
+              <option>Estate</option>
+            </select>
+            <ChevronDown aria-hidden="true" />
+          </label>
+          <label className="hero-search-field hero-search-location">
+            <span>City or area</span>
+            <select value={location} onChange={(event) => setLocation(event.target.value)} aria-label="City or area">
+              <option>Any destination</option>
+              <option>Portugal</option>
+              <option>Spain</option>
+              <option>Italy</option>
+            </select>
+            <ChevronDown aria-hidden="true" />
+          </label>
+          <button className={`hero-filter-toggle ${advancedFiltersOpen ? "active" : ""}`} type="button" onClick={() => setAdvancedFiltersOpen((isOpen) => !isOpen)} aria-expanded={advancedFiltersOpen}>
+            <SlidersHorizontal aria-hidden="true" />
+            <span>Filters</span>
+          </button>
+          <button className="hero-search-submit" type="submit"><Search aria-hidden="true" /><span>Search</span></button>
+          {advancedFiltersOpen && (
+            <div className="hero-advanced-filters">
+              <label className="hero-advanced-field">
+                <span>Budget</span>
+                <select value={budget} onChange={(event) => setBudget(event.target.value)}>
+                  <option>Any budget</option>
+                  <option>Under €1m</option>
+                  <option>€1m – €2m</option>
+                  <option>€2m+</option>
+                </select>
+              </label>
+              <label className="hero-advanced-field">
+                <span>Bedrooms</span>
+                <select value={bedrooms} onChange={(event) => setBedrooms(event.target.value)}>
+                  <option>Any bedrooms</option>
+                  <option value="3">3+ bedrooms</option>
+                  <option value="4">4+ bedrooms</option>
+                  <option value="5">5+ bedrooms</option>
+                </select>
+              </label>
+              <p>{budget === "Any budget" ? "Refine your search with considered details." : `Showing homes ${budget.toLowerCase()}.`}</p>
+            </div>
+          )}
+        </form>
         <div className="scroll-cue"><span className="scroll-line" /> Scroll to discover</div>
       </section>
 
@@ -270,8 +340,8 @@ export default function Home() {
 
       <section className="collection section-pad" id="collection">
         <div className="section-heading"><div><p className="eyebrow dark">The collection</p><h2>Selected with<br /><em>intention.</em></h2></div><p className="section-lead">A small, evolving collection of distinctive homes in places worth knowing.</p></div>
-        <div className="property-grid">{results.map((property, index) => <article className={`property-card card-${index}`} key={property.name}><div className="property-image"><img src={property.image} alt={`${property.name}, ${property.place}`} /><span className="card-index">0{index + 1}</span><a className="discover" href="#contact">Discover property <span>↗</span></a></div><div className="property-meta"><div><h3>{property.name}</h3><p>{property.place}</p></div><div className="property-stats"><span>{property.type}</span><span>{property.beds} beds</span><span>{property.area}</span></div><strong>{property.price}</strong></div></article>)}</div>
-        <a className="outline-button" href="#discover">View all properties <span>↗</span></a>
+        {filteredProperties.length > 0 ? <div className="property-grid">{filteredProperties.map((property, index) => <article className={`property-card card-${index}`} key={property.name}><div className="property-image"><img src={property.image} alt={`${property.name}, ${property.place}`} /><span className="card-index">0{index + 1}</span><a className="discover" href="#contact">Discover property <span>↗</span></a></div><div className="property-meta"><div><h3>{property.name}</h3><p>{property.place}</p></div><div className="property-stats"><span>{property.type}</span><span>{property.beds} beds</span><span>{property.area}</span></div><strong>{property.price}</strong></div></article>)}</div> : <p className="property-empty">No homes match these details yet. Try widening your search or <a href="#contact">speak with our team</a>.</p>}
+        <a className="outline-button" href="#why-us">Why work with us <span>↗</span></a>
       </section>
 
       <section className="showcase dark-section section-pad" id="showcase">
@@ -302,13 +372,8 @@ export default function Home() {
         />
       </section>
 
-      <section className="discovery dark-section section-pad" id="discover">
-        <div className="section-heading"><div><p className="eyebrow">Property discovery</p><h2>Find your<br /><em>next chapter.</em></h2></div><p className="section-lead">Begin with a feeling, refine with the details. Our live shortlist is a starting point for a more personal conversation.</p></div>
-        <div className="filters"><label>Search destination<input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="e.g. Portugal" /></label><label>Property type<select value={type} onChange={(event) => setType(event.target.value)}><option>All types</option><option>Villa</option><option>Residence</option><option>Estate</option></select></label><span className="result-count">{results.length} properties</span></div>
-        <div className="discovery-list">{results.map((property) => <a href="#contact" key={property.name}><span>{property.name}</span><span>{property.place}</span><span>{property.type} · {property.beds} beds</span><span>{property.price} ↗</span></a>)}{results.length === 0 && <p className="empty-state">No properties match this search. Tell us what you are looking for and we will curate a private shortlist.</p>}</div>
-      </section>
+      <WhyWorkWithUs />
 
-      <ScrollExpandMedia eyebrow="02 / A different perspective" title="Room for the horizon." description="The best addresses offer more than a view. They give you a new tempo, a wider sense of possibility." location="Mallorca, Spain" mediaSrc={properties[1].image} bgImageSrc="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1800&q=85" />
 
       <section className="destinations section-pad" id="approach"><div className="section-heading"><div><p className="eyebrow dark">Places to begin</p><h2>Beyond the<br /><em>coordinates.</em></h2></div><p className="section-lead">We work with a growing network of local specialists and know the value of looking at a place from every angle.</p></div><div className="destination-layout"><div className="destination-photo"><img src={destination[2]} alt={destination[0]} /></div><div className="destination-copy"><p className="destination-number">0{destinations.findIndex((item) => item[0] === destination[0]) + 1} / 03</p><h3>{destination[0]}</h3><p>{destination[1]}</p>{destinations.map((item) => <button className={destination[0] === item[0] ? "active" : ""} key={item[0]} onClick={() => setDestination(item)}>{item[0]} <span>↗</span></button>)}</div></div></section>
 

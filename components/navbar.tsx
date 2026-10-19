@@ -22,7 +22,7 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { id: "collection", label: "Collection" },
   { id: "showcase", label: "3D Showcase", badge: "3D" },
-  { id: "discover", label: "Discovery" },
+  { id: "why-us", label: "Why Us" },
   { id: "approach", label: "Our Approach" },
   { id: "testimonials", label: "Perspectives" },
 ];
@@ -53,7 +53,7 @@ export function Navbar() {
 
   // Track active section via IntersectionObserver
   useEffect(() => {
-    const sectionIds = ["top", "collection", "showcase", "discover", "approach", "testimonials", "contact"];
+    const sectionIds = ["top", "collection", "showcase", "why-us", "approach", "testimonials", "contact"];
     const elements = sectionIds
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
@@ -162,8 +162,8 @@ export function Navbar() {
 
               {/* Quick Search / Filter shortcut */}
               <a
-                href="#discover"
-                onClick={(e) => handleLinkClick(e, "#discover")}
+                href="#collection"
+                onClick={(e) => handleLinkClick(e, "#collection")}
                 className="forma-nav-icon-btn"
                 aria-label="Search Properties"
                 title="Search Properties"
