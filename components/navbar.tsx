@@ -226,7 +226,7 @@ export function Navbar() {
                   <span className="status-dot">
                     <span className="status-dot-ping" />
                   </span>
-                  <span>International Private Portfolio</span>
+                  <span>Sri Lanka Property Specialists</span>
                 </div>
                 <button
                   type="button"
@@ -266,20 +266,20 @@ export function Navbar() {
                   onClick={(e) => handleLinkClick(e, "#contact")}
                   className="mobile-drawer-cta"
                 >
-                  Arrange Private Consultation
+                  Arrange a Viewing
                   <ArrowUpRight className="w-4 h-4 ml-2" />
                 </a>
 
                 <div className="mobile-drawer-meta">
                   <div className="mobile-meta-item">
                     <span className="meta-label">Direct Advisory</span>
-                    <a href="mailto:concierge@formaestate.com" className="meta-val">
-                      concierge@formaestate.com
+                    <a href="mailto:enquiries@forma-estate.lk" className="meta-val">
+                      enquiries@forma-estate.lk
                     </a>
                   </div>
                   <div className="mobile-meta-item">
-                    <span className="meta-label">Destinations</span>
-                    <span className="meta-val">Portugal · Italy · Spain · France</span>
+                    <span className="meta-label">Sri Lanka Locations</span>
+                    <span className="meta-val">Colombo · Galle · Kandy · Negombo</span>
                   </div>
                 </div>
               </div>
