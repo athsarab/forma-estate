@@ -657,9 +657,9 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <section className="journey dark-section section-pad">
-
-             <div className="section-heading">
+      {/* ── TESTIMONIALS / PERSPECTIVES ─────────────────────────────────── */}
+      <section className="testimonials-section dark-section section-pad" id="testimonials">
+        <div className="section-heading">
           <div>
             <p className="eyebrow">Client Perspectives</p>
             <h2>Words from our<br /><em>community.</em></h2>
@@ -670,8 +670,7 @@ export default function Home() {
         </div>
 
         <AnimatedTestimonialsMarquee
-          testimonials={testimonials}
-          speed={45}
+          speed={42}
           pauseOnHover={true}
         />
       </section>
