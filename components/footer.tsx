@@ -60,12 +60,12 @@ export function Footer() {
           {/* Left Column: Headline & Copyright */}
           <div className="footer-headline-col">
             <h2 className="footer-headline">
-              Curating exceptional residences.
-              <br />
-              One sanctuary at a time!
+              Exceptional property across<br />
+              Sri Lanka — curated with care.
             </h2>
             <p className="footer-sub-copyright">
-              © {new Date().getFullYear()} Forma Estate / Site &amp; Brand by Forma Studio
+              © {new Date().getFullYear()} Forma Estate Sri Lanka ·{" "}
+              <em>Demo showcase — not a real agency</em>
             </p>
           </div>
 
@@ -75,8 +75,7 @@ export function Footer() {
             <ul className="footer-nav-links">
               <li><a href="#collection">Collection</a></li>
               <li><a href="#showcase">3D Showcase</a></li>
-              <li><a href="#discover">Discovery</a></li>
-              <li><a href="#approach">Our Approach</a></li>
+              <li><a href="/#approach">Our Approach</a></li>
               <li><a href="#testimonials">Perspectives</a></li>
             </ul>
           </div>
@@ -85,17 +84,17 @@ export function Footer() {
           <div className="footer-nav-column">
             <span className="footer-column-heading">Support</span>
             <ul className="footer-nav-links">
-              <li><a href="#contact">Contact Us</a></li>
-              <li><a href="#approach">Acquisition Guide</a></li>
-              <li><a href="#approach">Private Advisory</a></li>
-              <li><a href="#contact">Privacy Policy</a></li>
-              <li><a href="#approach">Legal &amp; Notary</a></li>
+              <li><a href="/#contact">Contact Us</a></li>
+              <li><a href="/#approach">Buying Guide</a></li>
+              <li><a href="/#approach">Rental Guide</a></li>
+              <li><a href="/#contact">Privacy Policy</a></li>
+              <li><a href="/#approach">Legal Notice</a></li>
             </ul>
           </div>
 
           {/* Right Column: Newsletter & Socials */}
           <div className="footer-action-column">
-            <span className="footer-column-heading">Get the latest from Forma.</span>
+            <span className="footer-column-heading">Get updates from Forma.</span>
 
             {subscribed ? (
               <div className="footer-subscribed-pill">

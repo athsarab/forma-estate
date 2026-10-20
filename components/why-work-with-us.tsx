@@ -14,25 +14,27 @@ interface StatItem {
 
 const STATS: StatItem[] = [
   {
-    value: 19,
+    value: 5,
     suffix: "+",
     label: "Years",
+    subLabel: "Serving Sri Lanka",
   },
   {
-    value: 15,
-    label: "Residential & Commercial",
-    subLabel: "Property Segments",
+    value: 8,
+    label: "Property Segments",
+    subLabel: "Residential & Commercial",
   },
   {
-    value: 8000,
+    value: 120,
     suffix: "+",
     hasSpaceBeforeSuffix: true,
-    label: "Property Listings",
+    label: "Demo Listings",
+    subLabel: "Illustrative sample data",
   },
   {
-    value: 2200,
-    suffix: "+",
-    label: "Successful Transactions",
+    value: 5,
+    label: "Key Districts",
+    subLabel: "Colombo · Galle · Kandy · Matara · Gampaha",
   },
 ];
 
@@ -107,7 +109,10 @@ export function WhyWorkWithUs() {
         >
           <h2 className="why-us-title">WHY WORK WITH US</h2>
           <p className="why-us-description">
-            Our unrivalled experience, unmatched market intelligence and insights across all property segments give us the capabilities to help our clients make informed real estate decisions and deliver the best outcomes.
+            We bring local knowledge, market intelligence, and trusted
+            professional networks across Sri Lanka&apos;s most sought-after
+            property markets — helping buyers, tenants, and investors make
+            informed decisions with confidence.
           </p>
 
           <a href="#collection" className="why-us-cta" aria-label="Explore more properties">
