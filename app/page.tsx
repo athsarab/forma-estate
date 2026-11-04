@@ -6,7 +6,7 @@ import { ChevronDown, Search, SlidersHorizontal, X } from "lucide-react";
 import ScrollExpandMedia from "../components/ui/scroll-expansion-hero";
 import {
   CoverflowCarousel,
-  CoverflowSlide,
+  CoverflowSlide, 
 } from "@/components/ui/coverflow-carousel";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
