@@ -6,7 +6,7 @@ export const AGENCY_CONFIG = {
   /** Agency display name shown in UI copy */
   name: "Forma Estate",
   /** Production domain — used for canonical URLs and OG tags */
-  domain: "https://forma-estate.vercel.app",
+  domain: "https://forma-estate.vercel.app", 
   /**
    * WhatsApp number in international format, digits only.
    * Replace with the agency's real number before launch.
