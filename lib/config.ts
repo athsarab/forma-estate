@@ -21,7 +21,7 @@ export const AGENCY_CONFIG = {
   social: {
     instagram: "https://instagram.com",
     facebook: "https://facebook.com",
-    tiktok: "",
+    tiktok: "", 
   },
 } as const;
 
