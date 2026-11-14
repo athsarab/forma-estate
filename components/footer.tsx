@@ -17,7 +17,7 @@ function TikTokIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
     <svg className={className} viewBox="0 0 24 24" fill="currentColor">
       <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-2.888 2.89 2.896 2.896 0 0 1-2.89-2.89 2.896 2.896 0 0 1 2.89-2.89c.307 0 .604.05.88.142V9.45a6.335 6.335 0 0 0-.88-.063A6.336 6.336 0 0 0 3 15.723 6.336 6.336 0 0 0 9.336 22a6.336 6.336 0 0 0 6.336-6.336V8.65a8.212 8.212 0 0 0 4.908 1.602V6.807a4.83 4.83 0 0 1-1-.121z" />
     </svg>
-  );
+  ); 
 }
 
 function FacebookIcon({ className = "w-4 h-4" }: { className?: string }) {
